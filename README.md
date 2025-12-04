@@ -98,7 +98,10 @@ npm run build
     *   算法放入 `src/algorithms/`
 2.  **文件命名**: 使用 PascalCase (如 `LinkedList.ts`, `BinarySearch.ts`)。
 3.  **测试驱动**: 每个新功能必须包含对应的 `*.test.ts` 文件，并确保覆盖率达标。
-4.  **提交信息**: 请使用 Conventional Commits 规范 (e.g., `feat: add binary search implementation`).
+4.  **提交信息**:
+    *   推荐运行 `npm run commit` 使用项目配置的简化版交互式工具进行提交。
+    *   若手动提交，请严格遵循 [Conventional Commits](https://www.conventionalcommits.org/) 规范。
+    *   **注意**: `type: subject` 格式中，冒号后面必须有一个空格 (例如: `feat: add binary search`)。
 
 ## 📝 License
 

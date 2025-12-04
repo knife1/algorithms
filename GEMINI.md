@@ -1,24 +1,39 @@
+## Gemini Added Memories
+- The user prefers the domain "global" for future interactions.
+# Instruction
+- Please output all conversations related to the Gemini CLI in Simplified Chinese.
+
 # 项目概览
-这是一个专注于算法学习和实践的代码仓库。目前项目处于初始化阶段。
+这是一个专注于前端开发者的算法学习与实践仓库。使用 **TypeScript** 实现，配备 **Vite** 构建系统与 **Vitest** 单元测试。
 
-# 目录结构建议
-由于当前项目为空，建议按照以下结构组织代码：
+# 技术栈
+*   **语言**: TypeScript
+*   **构建工具**: Vite
+*   **测试框架**: Vitest
 
-*   `LeetCode/`: 存放 LeetCode 刷题代码，建议按题目编号或类型分类。
-*   `Codeforces/`: 存放 Codeforces 比赛题目代码。
-*   `DataStructures/`: 常见数据结构（如链表、树、图、堆等）的标准实现。
-*   `Algorithms/`: 经典算法（如排序、搜索、动态规划模板）的实现。
-*   `Notes/`: 算法学习笔记、复杂度分析等文档。
+# 目录结构
+```text
+algorithms/
+├── src/
+│   ├── algorithms/        # 算法实现
+│   ├── data-structures/   # 数据结构实现
+│   └── index.ts           # 库入口文件
+```
 
-# 开发规范建议
+# 开发规范
 
 ## 命名规范
-*   **文件命名**: 建议使用 `题目编号-题目名称.扩展名` 或 `题目名称.扩展名` (例如: `001-TwoSum.cpp`, `QuickSort.py`)。
-*   **代码风格**: 请遵循所使用语言的标准代码风格 (例如: Python 使用 PEP 8, C++ 使用 Google Style 等)。
+*   **文件命名**: 使用 PascalCase (如 `LinkedList.ts`, `BinarySearch.ts`)。
+
+## 测试驱动 (TDD)
+*   每个新功能必须包含对应的 `*.test.ts` 文件。
+*   确保测试覆盖率达标。
 
 ## 提交信息
-*   建议使用清晰的 commit message，例如: `feat: add solution for LeetCode 1` 或 `docs: update binary search notes`.
+*   推荐使用 `npm run commit` (交互式工具)。
+*   手动提交必须遵循 Conventional Commits 规范 (例如: `feat: add binary search`)，**注意冒号后需要空格**。
 
-# 构建与运行
-*   具体构建和运行命令将取决于所使用的编程语言 (C++, Python, Java, Go 等)。
-*   建议为每个题目包含简单的测试用例或 main 函数以便于验证。
+# 常用命令
+*   运行测试: `npm run test`
+*   生成覆盖率: `npm run test:coverage`
+*   构建项目: `npm run build`
