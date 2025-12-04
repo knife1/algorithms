@@ -8,7 +8,14 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "build": "tsc --noEmit && vite build"
+    "build": "tsc --noEmit && vite build",
+    "prepare": "husky",
+    "commit": "cz"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-git"
+    }
   },
   "keywords": [],
   "author": "",
@@ -27,8 +34,13 @@
   ],
   "sideEffects": false,
   "devDependencies": {
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
     "@types/node": "^24.10.1",
     "@vitest/coverage-v8": "^4.0.15",
+    "commitizen": "^4.3.1",
+    "cz-git": "^1.12.0",
+    "husky": "^9.1.7",
     "terser": "^5.44.1",
     "typescript": "^5.9.3",
     "vite": "^7.2.6",
