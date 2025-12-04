@@ -1,0 +1,44 @@
+{
+  // 访问 https://aka.ms/tsconfig 了解更多关于此文件的信息
+  "compilerOptions": {
+    // ========== 文件布局配置 ==========
+    "outDir": "./dist",                  // 指定输出目录，编译后的文件将输出到此目录
+
+    // ========== 环境设置 ==========
+    // 更多信息请参考 https://aka.ms/tsconfig/module
+    "module": "esnext",                  // 模块系统：使用 ESNext 模块系统（前端通用，支持 import/export，无需显式扩展名）
+    "moduleResolution": "bundler",       // 模块解析策略：使用 bundler 模式（适合前端构建工具，允许省略文件扩展名）
+    "target": "esnext",                  // 编译目标：编译为最新的 ES 标准，保留所有现代 JavaScript 特性
+    "types": ["vitest/globals", "vitest"],                   // 类型定义：仅包含 Jest 测试框架的类型定义，提高编译速度
+    "lib": ["ESNext", "DOM"],            // 库文件：包含最新的 ES 标准库和浏览器 DOM API 的类型定义
+
+    // ========== 输出配置 ==========
+    "sourceMap": true,                   // 生成 source map 文件，便于调试时定位到原始 TypeScript 代码
+    "declaration": false,                // 不生成 .d.ts 声明文件（由 vite-plugin-dts 负责生成）
+    "declarationMap": false,             // 不生成声明文件的 source map（由 vite-plugin-dts 负责生成）
+
+    // ========== 更严格的类型检查选项 ==========
+    "noUncheckedIndexedAccess": true,    // 索引访问返回类型包含 undefined，需要显式检查（如 arr[0] 的类型是 T | undefined）
+    "exactOptionalPropertyTypes": true,   // 可选属性必须严格匹配 undefined，不能使用 null 替代
+
+    // ========== 代码风格选项 ==========
+    // "noImplicitReturns": true,       // 函数所有代码路径都必须有返回值
+    // "noImplicitOverride": true,      // 重写方法必须使用 override 关键字
+    // "noUnusedLocals": true,          // 报告未使用的局部变量错误
+    // "noUnusedParameters": true,      // 报告未使用的参数错误
+    // "noFallthroughCasesInSwitch": true, // switch 语句的 case 必须包含 break 或 return
+    // "noPropertyAccessFromIndexSignature": true, // 禁止使用点号访问索引签名属性
+
+    // ========== 推荐选项 ==========
+    "strict": true,                      // 启用所有严格类型检查选项（包括 noImplicitAny、strictNullChecks 等）
+    "jsx": "react-jsx",                  // JSX 处理方式：使用新的 JSX 转换（React 17+），无需在每个文件导入 React
+    "verbatimModuleSyntax": true,        // 保持导入/导出的原始语法，确保与运行时模块系统一致
+    "isolatedModules": true,             // 确保每个文件都可以独立编译，提高构建工具（如 Babel、Vite）的兼容性
+    "noUncheckedSideEffectImports": true, // 禁止未检查的副作用导入，确保导入语句的类型安全
+    "moduleDetection": "force",          // 强制将所有文件视为模块，即使没有 import/export 语句
+    "skipLibCheck": true                 // 跳过对声明文件（.d.ts）的类型检查，加快编译速度
+  },
+  "include": ["src", "vite.config.ts"],
+  // ========== 排除文件配置 ==========
+  "exclude": ["jest.config.js"]  // 排除构建和测试配置文件，避免被 TypeScript 编译器处理
+}

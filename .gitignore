@@ -1,0 +1,24 @@
+# 依赖
+node_modules/
+
+# 构建产物
+dist/
+
+# 测试覆盖率
+coverage/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# IDE 配置 (可选)
+.vscode/
+.idea/
+
+# 临时/日志文件
+*.log
+.gemini/
+
+# temp_docs 目录中的内容
+temp_docs/*
+!temp_docs/.gitkeep
