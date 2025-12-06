@@ -72,10 +72,39 @@ export class LinkedList {
      * @param value 删除的值
      * @returns 删除的节点或null
      */
-    // delete(value: any):LinkedListNode|null {
-    //   let currentNode = this.head;
-    //   return currentNode;
-    // }
+    delete(value: any):LinkedListNode|null {
+      if (!this.head) {
+        return null;
+      }
+      
+      let deletedNode = null;
+      // 头节点判断
+      while(this.head && this.comparator.equal(this.head.value, value)) {
+        deletedNode = this.head;
+        this.head = this.head.next;
+      }
+
+      let currentNode = this.head;
+
+      if (currentNode !== null) {
+        // 如果链表不为空，遍历删除后续节点
+        while(currentNode.next) {
+          if (this.comparator.equal(currentNode.next.value, value)) {
+            deletedNode = currentNode.next;
+            currentNode.next = currentNode.next.next;
+          } else {
+            currentNode = currentNode.next;
+          }
+        }
+      }
+      
+      // 更新 tail
+      // 如果 head 为 null (链表空了)，tail 也应为 null
+      // 如果 head 不为 null，此时 currentNode 指向最后一个节点 (因为 while 循环结束条件是 !currentNode.next)
+      this.tail = currentNode;
+
+      return deletedNode;
+    }
     /**
      * 查找链表中是否包含某个值
      * @param {value, callback} value: 要查找的值, callback: 回调函数

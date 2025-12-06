@@ -275,6 +275,111 @@ describe('LinkedList', () => {
       expect(emptyList.head?.value).toBe(1);
     });
   });
+
+  // 测试 delete 方法
+  describe('delete', () => {
+    let linkedList: LinkedList;
+
+    beforeEach(() => {
+      linkedList = new LinkedList();
+    });
+
+    it('should return null when deleting a non-existent value', () => {
+      // 场景: 删除一个链表中不存在的值 (例如: 链表 1->2->3, 删除 5)
+      // 期望: 返回 null，且链表结构保持不变 (head=1, tail=3)
+      linkedList.append(1).append(2).append(3);
+      const deletedNode = linkedList.delete(5);
+      expect(deletedNode).toBeNull();
+      expect(linkedList.head?.value).toBe(1);
+      expect(linkedList.tail?.value).toBe(3);
+    });
+
+    it('should delete the node from the head', () => {
+      // 场景: 删除链表头部的节点 (例如: 链表 1->2->3, 删除 1)
+      // 期望: 返回被删除的节点(1)，head 更新为原第二个节点(2)，且 head.next 正确指向 3
+      linkedList.append(1).append(2).append(3);
+      const deletedNode = linkedList.delete(1);
+      expect(deletedNode?.value).toBe(1);
+      expect(linkedList.head?.value).toBe(2);
+      expect(linkedList.head?.next?.value).toBe(3);
+    });
+
+    it('should delete multiple nodes from the head', () => {
+      // 场景: 链表头部有连续多个待删除节点 (例如: 链表 1->1->2, 删除 1)
+      // 期望: 返回最后被删除的那个 1，head 更新为第一个非匹配节点(2)
+      linkedList.append(1).append(1).append(2);
+      const deletedNode = linkedList.delete(1);
+      expect(deletedNode?.value).toBe(1);
+      expect(linkedList.head?.value).toBe(2);
+    });
+
+    it('should delete the node from the tail', () => {
+      // 场景: 删除链表尾部的节点 (例如: 链表 1->2->3, 删除 3)
+      // 期望: 返回被删除的节点(3)，tail 更新为原倒数第二个节点(2)，且新 tail.next 为 null
+      linkedList.append(1).append(2).append(3);
+      const deletedNode = linkedList.delete(3);
+      expect(deletedNode?.value).toBe(3);
+      expect(linkedList.tail?.value).toBe(2);
+      expect(linkedList.tail?.next).toBeNull();
+    });
+
+    it('should delete the node from the middle', () => {
+      // 场景: 删除链表中间的节点 (例如: 链表 1->2->3, 删除 2)
+      // 期望: 返回被删除的节点(2)，head.next 跳过 2 直接指向 3
+      linkedList.append(1).append(2).append(3);
+      const deletedNode = linkedList.delete(2);
+      expect(deletedNode?.value).toBe(2);
+      expect(linkedList.head?.next?.value).toBe(3);
+    });
+
+    it('should delete multiple nodes with the same value', () => {
+      // 场景: 链表中有多个分散的待删除节点 (例如: 链表 1->2->1->3->1, 删除 1)
+      // 期望: 返回最后被删除的节点(1)，剩余链表为 2->3，tail 正确指向 3
+      linkedList.append(1).append(2).append(1).append(3).append(1);
+      const deletedNode = linkedList.delete(1);
+      expect(deletedNode?.value).toBe(1);
+      // 期望剩余链表: 2 -> 3
+      expect(linkedList.head?.value).toBe(2);
+      expect(linkedList.head?.next?.value).toBe(3);
+      expect(linkedList.tail?.value).toBe(3);
+    });
+
+    it('should delete all nodes in the list', () => {
+      // 场景: 删除链表中所有节点 (例如: 链表 1->1, 删除 1)
+      // 期望: 返回被删除的节点，链表变为空 (head 和 tail 均为 null)
+      linkedList.append(1).append(1);
+      const deletedNode = linkedList.delete(1);
+      expect(deletedNode?.value).toBe(1);
+      expect(linkedList.head).toBeNull();
+      expect(linkedList.tail).toBeNull();
+    });
+
+    it('should handle empty list', () => {
+      // 场景: 对空链表进行删除操作
+      // 期望: 返回 null，不报错
+      const deletedNode = linkedList.delete(1);
+      expect(deletedNode).toBeNull();
+    });
+
+    it('should delete objects using custom comparator', () => {
+      // 场景: 使用自定义比较器 (按 key 属性) 删除对象
+      // 期望: 即使对象引用不同，只要 key 匹配就被删除。返回被删除的对象，剩余链表结构正确。
+      const comparatorFunction = (a: any, b: any) => {
+        if (a.key === b.key) return 0;
+        return a.key < b.key ? -1 : 1;
+      };
+      const list = new LinkedList(comparatorFunction);
+      
+      const obj1 = { key: 'a', val: 1 };
+      const obj2 = { key: 'b', val: 2 };
+      
+      list.append(obj1).append(obj2);
+
+      const deletedNode = list.delete({ key: 'a' });
+      expect(deletedNode?.value).toBe(obj1);
+      expect(list.head?.value).toBe(obj2);
+    });
+  });
 });
 
 
